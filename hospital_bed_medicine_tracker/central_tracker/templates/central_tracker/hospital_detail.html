@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="dashboard-container">
+
+    <h2 class="page-title">{{ hospital.hospital_name }}</h2>
+
+    <div class="detail-wrapper">
+
+        <!-- TOP SECTION -->
+        <div class="top-grid">
+
+            <!-- Available Beds -->
+            <div class="info-card">
+                <h4>Available Beds</h4>
+                <div class="big-number">{{ hospital.available_beds }}</div>
+            </div>
+
+            <!-- Status -->
+            <div class="info-card">
+                <h4>Status</h4>
+                {% if hospital.sos_active %}
+                    <span class="badge red">🚨 SOS ACTIVE</span>
+                {% else %}
+                    <span class="badge green">🟢 Normal</span>
+                {% endif %}
+            </div>
+
+            <!-- Hospital Info -->
+            <div class="info-card">
+                <h4>Hospital Information</h4>
+
+                {% if hospital.hospital_name == "HealthGuard Medical Center" %}
+                    <p><strong>📍 Address:</strong><br>
+                        HealthGuard Medical Center,<br>
+                        MG Road, Near City Mall,<br>
+                        Kanjirappally, Kottayam,<br>
+                        Kerala – 686507, India
+                    </p>
+
+                    <p><strong>📞 Phone:</strong> +91 481 256 7821</p>
+                    <p><strong>🚑 Emergency:</strong> +91 98765 43210</p>
+                    <p><strong>✉ Email:</strong> contact@healthguard-a.com</p>
+
+                    <a target="_blank"
+                       class="map-btn"
+                       href="https://www.google.com/maps/search/?api=1&query=HealthGuard+Medical+Center+Kanjirappally">
+                       🗺 Open in Google Maps
+                    </a>
+
+                {% elif hospital.hospital_name == "CarePlus Multispeciality Hospital" %}
+                    <p><strong>📍 Address:</strong><br>
+                        CarePlus Multispeciality Hospital,<br>
+                        NH 183, Opp. KSRTC Bus Stand,<br>
+                        Peerumade, Idukki,<br>
+                        Kerala – 685531, India
+                    </p>
+
+                    <p><strong>📞 Phone:</strong> +91 4869 233 118</p>
+                    <p><strong>🚑 Emergency:</strong> +91 91234 56789</p>
+                    <p><strong>✉ Email:</strong> support@careplus-b.com</p>
+
+                    <a target="_blank"
+                       class="map-btn"
+                       href="https://www.google.com/maps/search/?api=1&query=CarePlus+Hospital+Peerumade">
+                       🗺 Open in Google Maps
+                    </a>
+
+                {% elif hospital.hospital_name == "Lifeline Advanced Medical Institute" %}
+                    <p><strong>📍 Address:</strong><br>
+                        Lifeline Advanced Medical Institute,<br>
+                        College Road, Near Government Hospital,<br>
+                        Pala, Kottayam,<br>
+                        Kerala – 686575, India
+                    </p>
+
+                    <p><strong>📞 Phone:</strong> +91 4822 221 504</p>
+                    <p><strong>🚑 Emergency:</strong> +91 90123 45678</p>
+                    <p><strong>✉ Email:</strong> info@lifeline-c.com</p>
+
+                    <a target="_blank"
+                       class="map-btn"
+                       href="https://www.google.com/maps/search/?api=1&query=Lifeline+Medical+Institute+Pala">
+                       🗺 Open in Google Maps
+                    </a>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- RESOURCES -->
+        <div class="resource-card">
+            <h4>Resources</h4>
+
+            <table class="resource-table">
+                <thead>
+                    <tr>
+                        <th>Resource</th>
+                        <th>Category</th>
+                        <th>Available</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in resources %}
+                    <tr>
+                        <td>{{ r.name }}</td>
+                        <td>{{ r.category }}</td>
+                        <td>{{ r.available_count }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No resources available</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

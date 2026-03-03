@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="hero">
+    <h1>
+        Real-time Hospital Bed &
+        <span>Medicine Availability</span>
+    </h1>
+
+    <form method="get" class="search-bar">
+        <input type="text"
+               name="q"
+               placeholder="Search by hospital name..."
+               value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+        <button type="button" onclick="getLocation()">
+            📍 Use My Location
+        </button>
+    </form>
+</div>
+
+<div class="hospital-grid">
+    {% for h in hospitals %}
+    <div class="hospital-card">
+
+        <h3>{{ h.hospital_name }}</h3>
+
+        <div class="badges">
+            <span class="badge green">
+                Beds: {{ h.available_beds }}
+            </span>
+
+            {% if h.sos_active %}
+                <span class="badge red">
+                    🚨 SOS ACTIVE
+                </span>
+            {% endif %}
+        </div>
+
+        {% if h.distance %}
+            <p class="distance">
+                📍 {{ h.distance }} km away
+            </p>
+        {% endif %}
+
+        <div class="card-actions">
+            <a href="{% url 'central_tracker:hospital_detail' h.id %}"
+               class="btn secondary">
+               View Details
+            </a>
+
+            <a href="{% url 'central_tracker:send_sos' h.id %}?lat={{request.GET.lat}}&lon={{request.GET.lon}}"
+               class="btn danger">
+               🚨 SOS
+            </a>
+        </div>
+
+    </div>
+    {% empty %}
+        <p>No hospitals available in this area.</p>
+    {% endfor %}
+</div>
+
+<script>
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            window.location.href =
+                "?lat=" + position.coords.latitude +
+                "&lon=" + position.coords.longitude;
+        });
+    } else {
+        alert("Geolocation not supported");
+    }
+}
+</script>
+
+{% endblock %}

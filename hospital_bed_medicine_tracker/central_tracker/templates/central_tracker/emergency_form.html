@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Emergency Request</h2>
+
+<form method="post">
+  {% csrf_token %}
+
+  <label>Hospital</label>
+  <select name="hospital_name">
+    {% for h in hospitals %}
+      <option value="{{ h.hospital_name }}">{{ h.hospital_name }}</option>
+    {% endfor %}
+  </select>
+
+  <br><br>
+
+  <label>Patient Name</label>
+  <input type="text" name="patient_name" required>
+
+  <br><br>
+
+  <label>Contact Number</label>
+  <input type="text" name="contact_number" required>
+
+  <br><br>
+
+  <label>Message</label>
+  <textarea name="message" required></textarea>
+
+  <br><br>
+
+  <button type="submit">Send SOS</button>
+</form>
+{% endblock %}

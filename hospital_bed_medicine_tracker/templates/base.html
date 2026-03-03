@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MEDORM</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+{% load static %}
+
+<nav class="main-navbar">
+
+    <div class="nav-left">
+        <a href="/" class="brand-link">
+            <img src="{% static 'images/logo.png' %}" 
+                 alt="MEDORM Logo" 
+                 class="brand-logo">
+            <span class="brand-name">MEDORM</span>
+        </a>
+    </div>
+</nav>
+</nav>
+<div class="page-wrapper">
+    {% block content %}{% endblock %}
+</div>
+{% if messages %}
+<div class="floating-alert-container">
+    {% for message in messages %}
+        <div class="floating-alert {{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+</body>
+</html>

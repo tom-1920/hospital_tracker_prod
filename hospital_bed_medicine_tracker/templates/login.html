@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hospital Staff Login</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body class="login-body">
+
+<div class="login-container">
+
+    <!-- LEFT PANEL -->
+    <div class="login-left">
+        <div class="overlay">
+            <h1>HealthGuard Staff Portal</h1>
+            <p>
+                Securely manage bed availability, medicines,
+                and emergency resources in real-time.
+            </p>
+            <span class="secure-tag">
+                🔒 Authorized Access Only
+            </span>
+        </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="login-right">
+
+        <div class="login-form-box">
+            <h2>Welcome Back</h2>
+            <p class="sub-text">
+                Enter your hospital credentials to continue.
+            </p>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="input-group">
+                    <input type="text" name="username" required>
+                    <label>Hospital ID</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" name="password" required>
+                    <label>Password</label>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Secure Login
+                </button>
+
+                {% if error %}
+                    <div class="error-box">
+                        {{ error }}
+                    </div>
+                {% endif %}
+            </form>
+
+            <div class="support-text">
+                Having trouble?
+                <span>Contact Health Authority</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer class="login-footer">
+    © 2026 HealthGuard System. Secure Government Portal.
+</footer>
+
+</body>
+</html>
